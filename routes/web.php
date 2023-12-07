@@ -23,3 +23,11 @@ Route::get('ppp', function () {
 Route::screen('/', TaskScreen::class)->name('platform.task');
 Route::screen('state', StateScreen::class)->name('state');
 Route::screen('/idea', Idea::class)->name('platform.idea');
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/reg', function () {
+		return view('reg');
+});
+	
+Route::post('/reg', 'AuthController@postReg');

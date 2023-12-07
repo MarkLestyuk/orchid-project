@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
+use App\Http\Resources\UserResource;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/user/{id}', function (string $id) {
+    return new UserResource(User::findOrFail($id));
+});
+
+Route::middleware('guest')->namespace('\App\Http\Controllers')->group(function() {
+	Route::get('/login', function () {
+		return view('login');
+	});
+	
+	Route::post('/login', 'AuthController@postSignin'
+	);
 });
